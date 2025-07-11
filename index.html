@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HEHE4X WEB</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #0E121C;
+      padding-top: 120px;
+      color: white;
+    }
+    h1 { text-align: center; }
+    a { color: #0E121C; display: hidden;}
+    .link a { padding: 10px 10px; background-color: white; border-radius: 100%; text-decoration: none; }
+    .nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background-color: #1a1a1a;
+      padding: 15px 20px;
+      z-index: 100;
+      display: none;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #07B8FE;
+    }
+      
+    .nav .firstname {
+      font-weight: bold;
+      font-size: 20px;
+      transition: ease-in-out 0.5s;
+    }
+    .firstname:hover { color: red; }
+    .trial-info {
+      font-size: 14px;
+      color: #07B8FE;
+    }
+
+    .login-box {
+      max-width: 420px;
+      margin: 80px auto;
+      padding: 30px;
+      background: #1a1a1a;
+      border-radius: 10px;
+      text-align: center;
+      border: 2px solid #07B8FE;
+      box-shadow: 0 0 20px rgba(0, 184, 254, 0.5);
+    }
+    .login-box input, .login-box select {
+      padding: 10px;
+      margin: 8px 5px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: 2px solid #666666;
+      outline: none;
+      background-color: black;
+      color: white; 
+    }
+
+    .trial-inputs {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 10px 0;
+      flex-wrap: wrap;
+    }
+    .trial-inputs input {
+      width: 50px;
+      text-align: center;
+      font-size: 24px;
+      background: #0E121C;
+      color: white;
+      border: 2px solid #07B8FE;
+      border-radius: 5px;
+    }
+
+    .login-box button {
+      background: #07B8FE;
+      color: white;
+      font-weight: bold;
+      padding: 10px 20px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: ease 0.3s;
+    }
+      .login-box button:hover {
+      background: #666666;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+     .display {
+         padding-bottom: 30px;
+         display: grid;
+         grid-template-columns: repeat(5, 1fr);
+     }
+      .pancingan {
+         padding-bottom: 30px;
+         display: grid;
+         grid-template-columns: repeat(3, 1fr);
+     }
+    .top-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      padding: 20px 10px;
+      background-color: #0E121C;
+      border: 2px solid #07B8FE;
+      border-radius: 10px;
+      margin: 20px auto;
+      max-width: 300px;
+      width: 90%;
+      padding-bottom: 25px;
+    }
+    .top-item:hover {
+      box-shadow: 0 0 90px #07B8FE;
+      transform: translateY(-5px);
+      transition: 0.3s ease;
+      scale: 1.1;
+    }
+
+    .btn-arrow {
+      margin-top: 10px;
+      padding: 5px 25px;
+      background-color: #0E121C;
+      border: 2px solid #07B8FE;
+      border-radius: 25px;
+      color: white;
+      cursor: pointer;
+      transition: ease-in-out 0.3s;
+    }
+    .btn-arrow:hover { background-color: #07B8FE; }
+
+    .p-img {
+      height: 150px;
+      width: 100%;
+      object-fit: cover;
+      border-radius: 5px;
+      border: 2px solid #07B8FE;
+    }
+
+    .popup-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background-color: rgba(0, 0, 0, 0.85);
+      z-index: 9999;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .popup-box {
+      background-color: #0E121C;
+      padding: 10px;
+      border-radius: 12px;
+      border: 2px solid #07B8FE;
+      color: white;
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+    }
+
+      .popup-box h3 {
+          background-color: #0E121C;
+          margin-right: 50px;
+      }
+
+    .popup-buttons button {
+      margin: 8px;
+      padding: 10px 20px;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .download-btn { background-color: #07B8FE; color: white; transition: ease-in-out 0.3s; }
+    .cancel-btn { background-color: #ff4d4d; color: white; transition: ease-in-out 0.3s; }
+    .download-btn:hover { background-color: #07B8FE; color: gray; }
+    .cancel-btn:hover { background-color: #ff4d4d; color: gray; }
+
+    .logout-btn {
+      background: transparent;
+      border: 2px solid #07B8FE;
+      color: white;
+      padding: 8px 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+    .logout-btn:hover { background-color: #07B8FE; }
+
+    .badge-green { color: #00ff21; font-weight: 800; }
+    .badge-red { color: #ff0000; font-weight: 800; }
+    .badge-yellow { color: yellow; font-weight: 800; }
+      
+    .slider-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      margin: 20px;
+      margin-top: 25px;
+      padding-top: 25px;
+      border-top: 2px solid white;
+      border-bottom: 2px solid white;
+      margin-bottom: 25px;
+      padding-bottom: 25px;
+    }
+
+    .slider-container {
+      display: flex;
+      overflow-x: hidden;
+      scroll-snap-type: x mandatory;
+      gap: 25px;
+      padding: 20px;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .slider-container .slider-item {
+      flex: 0 0 auto;
+      width: 290px;
+      scroll-snap-align: start;
+      background: #1a1a1a;
+      border: 2px solid #07B8FE;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+      
+    }
+
+    .slider-container .slider-item:hover {
+      box-shadow: 0 0 40px #07B8FE;
+      transition: 0.3s ease;
+      scale: 1.03;
+    }
+
+    .scroll-btn {
+      position: absolute;
+      z-index: 10;
+      margin: 20px;
+      background-color: #0E121C;
+      border: 5px solid #07B8FE ;
+      color: white;
+      font-size: 20px;
+      padding: 15px 15px;
+      cursor: pointer;
+      border-radius: 100px;
+      opacity: 0.2;
+      transition: ease-in-out 0.3s;
+    }
+    .scroll-btn:hover { opacity: 1; background-color: #07B8FE;}
+    .scroll-btn.left { left: 0; }
+    .scroll-btn.right { right: 0; }
+    footer { text-align: center; padding: 25px; background-color: #1a1a1a;}
+    h3 { padding-top: 4px; padding-bottom: 4px; background-color: #07B8FE; border-radius: 25px; width: 250px; margin-left: 55px; margin-top: 20px;}
+
+    @media (max-width: 768px) {
+      .p-img { height: 120px; } 
+  .slider-wrapper {
+    flex-direction: column;
+    overflow-x: unset;
+    margin-top: 5px;
+  }
+        .firstname { font-size: 1px;}
+    .trial-info {
+      font-size: 10px;
+      font-weight: 900;
+    }
+          .display {
+         padding-bottom: 30px;
+         display: grid;
+         grid-template-columns: repeat(2, 1fr);
+     }
+
+          h1{ font-size: 25px;}
+
+  .slider-container {
+    flex-direction: column;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 0;
+    gap: 10px;
+    margin-top: 90px;
+  }
+
+  .slider-container .slider-item {
+    display: flex;
+    align-items: center;
+    width: 340px !important;
+    padding: 10px;
+    gap: 12px;
+    border-radius: 10px;
+  }
+
+  .slider-container .slider-item img.p-img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+  .slider-container .slider-item .btn-arrow {
+    margin-left: auto;
+    padding: 6px 14px;
+    font-size: 14px;
+  }
+
+          slider-item:hover {
+      box-shadow: 0 0 40px #07B8FE;
+      transform: translateY(-1px);
+      transition: 0.3s ease;
+    }
+
+  .scroll-btn {
+    display: none;
+  }
+        .login-box { scale: 0.9;}
+}
+
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <div class="nav" id="navbar">
+    <div class="firstname">HEHE4X<span style="color:#07B8FE">.WEB</span></div>
+    <div class="trial-info" id="trialInfo"></div>
+    <button onclick="logout()" class="logout-btn">Logout</button>
+  </div>
+
+  <!-- Login Box -->
+  <div class="login-box" id="loginBox">
+    <h2>Login</h2>
+    <input type="text" id="username" placeholder="Username" autocomplete="new-password" />
+    <input type="password" id="password" placeholder="Password" autocomplete="new-password" /><br>
+    <label>Pilih Trial:</label><br>
+    <select id="trialSelect" onchange="renderTrialInputs()">
+      <option value="">Pilih Trial</option>
+      <option value="1440">1 Hari</option>
+      <option value="4320">3 Hari</option>
+      <option value="10080">7 Hari</option>
+    </select>
+    <div class="trial-inputs" id="trialInputs"></div>
+    <button onclick="login()">Masuk</button>
+      <h3>HEHE4X.WEB HERE!</h3>
+  </div>
+  <!-- Konten Utama -->
+  <div id="mainContent" style="display: none;"><h1>🔰 ADA 14 SERVER! 🔰</h1><br>
+    <h1>RECOMEND FOR USE✅✨</h1>
+   <div class="display">
+       <div class="top-item">
+      <div class="badge-green">RECOMENDED ✅</div>
+      <img class="p-img" src="laos 256.png" alt="Bangladesh">
+      LAOS 🇱🇦<br>
+      <button class="btn-arrow" onclick="showPopup('alu.zip')">➡</button>
+    </div>
+    <div class="top-item">
+      <div class="badge-yellow">LUMAYAN 🟡</div>
+      <img class="p-img" src="th.png" alt="Bangladesh">
+      THAILAND 🇹🇭<br>
+      <button class="btn-arrow" onclick="showPopup('files/bangladesh.zip')">➡</button>
+    </div>
+       <div class="top-item">
+      <div class="badge-red">TRASH 👎</div>
+      <img class="p-img" src="mm 256.png" alt="Bangladesh">
+      MYANMAR 🇲🇲<br>
+      <button class="btn-arrow" onclick="showPopup('files/bangladesh.zip')">➡</button>
+    </div>
+       <div class="top-item">
+      <div class="badge-yellow">LUMAYAN 🟡</div>
+      <img class="p-img" src="cambodia 256.png" alt="Bangladesh">
+      KAMBOJA 🇰🇭<br>
+      <button class="btn-arrow" onclick="showPopup('files/bangladesh.zip')">➡</button>
+    </div>
+       <div class="top-item">
+      <div class="badge-yellow">LUMAYAN 🟡</div>
+      <img class="p-img" src="sgd 256.png" alt="Bangladesh">
+      SINGAPURA 🇸🇬<br>
+      <button class="btn-arrow" onclick="showPopup('files/bangladesh.zip')">➡</button>
+    </div>
+       </div>
+    <h1>List ALL SERVER</h1><div class="slider-wrapper">
+      <button class="scroll-btn left" onclick="scrollSlider(-2)">←</button>
+      <div class="slider-container" id="sliderContainer">
+        <div class="slider-item">
+          <img class="p-img" src="laos 256.png" alt="Laos">
+          LAOS 🇱🇦<br><button class="btn-arrow" onclick="showPopup('files/laos.zip')">➡</button>
+        </div>
+        <div class="slider-item">
+          <img class="p-img" src="cambodia 256.png" alt="Cambodia">
+          CAMBODIA 🇰🇭<br><button class="btn-arrow" onclick="showPopup('files/cambodia.zip')">➡</button>
+        </div>
+        <div class="slider-item">
+          <img class="p-img" src="mm 256.png" alt="Myanmar">
+          MYANMAR 🇲🇲<br><button class="btn-arrow" onclick="showPopup('files/myanmar.zip')">➡</button>
+        </div>
+        <div class="slider-item">
+          <img class="p-img" src="sgd 256.png" alt="Singapore">
+          SINGAPORE 🇸🇬<br><button class="btn-arrow" onclick="showPopup('files/singapore.zip')">➡</button>
+        </div>
+          <div class="slider-item">
+          <img class="p-img" src="bb 256.png" alt="Singapore">
+          BANGLADESH 🇧🇩<br><button class="btn-arrow" onclick="showPopup('files/singapore.zip')">➡</button>
+        </div>
+          <div class="slider-item">
+      <img class="p-img" src="hk.png" alt="Bangladesh">
+      HONGKONG 🇭🇰<br>
+      <button class="btn-arrow" onclick="showPopup('files/bangladesh.zip')">➡</button>
+    </div>
+        <div class="slider-item">
+      <img class="p-img" src="estonia.png" alt="Bangladesh">
+      ESTONIA 🇪🇪<br>
+      <button class="btn-arrow" onclick="showPopup('files/bangladesh.zip')">➡</button>
+    </div>
+        <div class="slider-item">
+      <img class="p-img" src="latvia.png" alt="Bangladesh">
+      LATVIA 🇱🇻<br>
+      <button class="btn-arrow" onclick="showPopup('files/bangladesh.zip')">➡</button>
+    </div>
+          <div class="slider-item">
+          <img class="p-img" src="japan.png" alt="Singapore">
+          JEPANG 🇯🇵<br><button class="btn-arrow" onclick="showPopup('files/singapore.zip')">➡</button>
+        </div>
+          <div class="slider-item">
+          <img class="p-img" src="india.png" alt="Singapore">
+          INDIA 🇮🇳<br><button class="btn-arrow" onclick="showPopup('files/singapore.zip')">➡</button>
+        </div>
+          <div class="slider-item">
+          <img class="p-img" src="arab.png" alt="Singapore">
+          SAUDI ARABIA 🇸🇦<br><button class="btn-arrow" onclick="showPopup('files/singapore.zip')">➡</button>
+        </div>
+          <div class="slider-item">
+          <img class="p-img" src="vn.png" alt="Singapore">
+          VIETNAM 🇻🇳<br><button class="btn-arrow" onclick="showPopup('files/singapore.zip')">➡</button>
+        </div>
+          <div class="slider-item">
+          <img class="p-img" src="pakis.png" alt="Singapore">
+          PAKISTAN 🇵🇰<br><button class="btn-arrow" onclick="showPopup('files/singapore.zip')">➡</button>
+        </div>
+          <div class="slider-item">
+      <img class="p-img" src="panama.png" alt="Bangladesh">
+      PANAMA 🇵🇦<br>
+      <button class="btn-arrow" onclick="showPopup('files/bangladesh.zip')">➡</button>
+    </div>
+      </div>
+      <button class="scroll-btn right" onclick="scrollSlider(2)"></button>
+    </div>
+    <h1>SERVER PANCINGAN</h1><div class="pancingan">
+        <div class="top-item">
+      <img class="p-img" src="hk.png" alt="Bangladesh">
+      HONGKONG 🇭🇰<br>
+      <button class="btn-arrow" onclick="showPopup('files/bangladesh.zip')">➡</button>
+    </div>
+        <div class="top-item">
+      <img class="p-img" src="estonia.png" alt="Bangladesh">
+      ESTONIA 🇪🇪<br>
+      <button class="btn-arrow" onclick="showPopup('files/bangladesh.zip')">➡</button>
+    </div>
+        <div class="top-item">
+      <img class="p-img" src="latvia.png" alt="Bangladesh">
+      LATVIA 🇱🇻<br>
+      <button class="btn-arrow" onclick="showPopup('files/bangladesh.zip')">➡</button>
+    </div>
+    </div>
+      <h1>SERVER BUAT AKUN</h1>
+      <div class="top-item"> BUAT AKUN SERVER 5K
+      <img class="p-img" src="panama.png" alt="Bangladesh">
+      PANAMA 🇵🇦<br>
+      <button class="btn-arrow" onclick="showPopup('files/bangladesh.zip')">➡</button>
+    </div>
+<a href="#">SERCRET!</a>
+      <footer>Ikuti Youtube Aku Ya @HEHE4X</footer>
+  <!-- Popup -->
+  <div id="popupOverlay" class="popup-overlay">
+    <div class="popup-box">
+      <h3>Apakah kamu ingin mendownload item ini? File .ovpn</h3>
+      <div class="popup-buttons">
+        <button class="download-btn" onclick="downloadSelected()">Download</button>
+        <button class="cancel-btn" onclick="closePopup()">Tidak Jadi</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const VALID_USER = "HEHE4X";
+    const VALID_PASS = "LOGIN_1234";
+    const RULES = {
+      "1440": { start: "32", end: "1", length: 4 },
+      "4320": { start: "94", middle: "18", length: 6 },
+      "10080": { start: "16", middle: "70", end: "90", length: 10 }
+    };
+    let currentDownload = "";
+
+    function showPopup(fileUrl) {
+      currentDownload = fileUrl;
+      document.getElementById("popupOverlay").style.display = "flex";
+    }
+    function closePopup() {
+      currentDownload = "";
+      document.getElementById("popupOverlay").style.display = "none";
+    }
+    function downloadSelected() {
+      if (currentDownload) window.open(currentDownload, '_blank', 'noopener');
+      closePopup();
+    }
+
+    function renderTrialInputs() {
+      const trial = document.getElementById("trialSelect").value;
+      const container = document.getElementById("trialInputs");
+      container.innerHTML = "";
+      if (!trial || !RULES[trial]) return;
+      const keyLength = RULES[trial].length;
+      for (let i = 0; i < keyLength; i++) {
+        const input = document.createElement("input");
+        input.maxLength = 1;
+        input.setAttribute("id", `code${i}`);
+        input.setAttribute("oninput", `nextInput(this, ${i + 1 < keyLength ? `'code${i + 1}'` : null})`);
+        container.appendChild(input);
+      }
+    }
+
+    function nextInput(curr, nextId) {
+      curr.value = curr.value.replace(/\D/g, '');
+      if (curr.value && nextId) document.getElementById(nextId).focus();
+    }
+
+    function getTrialKey() {
+      const trial = document.getElementById("trialSelect").value;
+      const length = RULES[trial]?.length || 0;
+      let result = "";
+      for (let i = 0; i < length; i++) {
+        result += document.getElementById(`code${i}`).value || '';
+      }
+      return result;
+    }
+
+    function validateKey(trial, key) {
+      const rule = RULES[trial];
+      if (!rule || key.length !== rule.length) return false;
+      if (rule.start && !key.startsWith(rule.start)) return false;
+      if (rule.end && !key.endsWith(rule.end)) return false;
+      if (rule.middle) {
+        const midIndex = Math.floor((key.length - rule.middle.length) / 2);
+        const mid = key.slice(midIndex, midIndex + rule.middle.length);
+        if (mid !== rule.middle) return false;
+      }
+      return true;
+    }
+
+    function formatRemainingTime(ms) {
+      const totalSeconds = Math.floor(ms / 1000);
+      const hours = Math.floor(totalSeconds / 3600);
+      const minutes = Math.floor((totalSeconds % 3600) / 60);
+      const seconds = totalSeconds % 60;
+      return `${hours}j ${minutes}m ${seconds}d`;
+    }
+
+    function updateTrialInfo() {
+      const expire = localStorage.getItem("trial_expire");
+      if (!expire) return;
+      const remaining = Number(expire) - Date.now();
+      if (remaining <= 0) {
+        localStorage.removeItem("trial_expire");
+        localStorage.removeItem("trial_duration");
+        location.reload();
+      } else {
+        document.getElementById("trialInfo").innerText = `Durasi Trial: ${formatRemainingTime(remaining)}`;
+      }
+    }
+
+    function login() {
+      const user = document.getElementById("username").value.trim();
+      const pass = document.getElementById("password").value.trim();
+      const trial = document.getElementById("trialSelect").value;
+      const key = getTrialKey();
+      if (!user || !pass || !trial || !validateKey(trial, key) || user !== VALID_USER || pass !== VALID_PASS) {
+        alert("Username, password, atau trial key salah!");
+        return;
+      }
+      const expire = Date.now() + Number(trial) * 60 * 1000;
+      localStorage.setItem("trial_expire", expire);
+      localStorage.setItem("trial_duration", trial);
+      showContent();
+    }
+
+    function showContent() {
+      document.getElementById("loginBox").style.display = "none";
+      document.getElementById("navbar").style.display = "flex";
+      document.getElementById("mainContent").style.display = "block";
+      updateTrialInfo();
+      setInterval(updateTrialInfo, 1000);
+    }
+
+    function logout() {
+      localStorage.removeItem("trial_expire");
+      localStorage.removeItem("trial_duration");
+      location.reload();
+    }
+
+    function scrollSlider(direction) {
+      const container = document.getElementById("sliderContainer");
+      const scrollAmount = 220;
+      container.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
+    }
+
+    window.onload = () => {
+      const expire = localStorage.getItem("trial_expire");
+      if (expire && Date.now() < Number(expire)) {
+        showContent();
+      } else {
+        localStorage.removeItem("trial_expire");
+        localStorage.removeItem("trial_duration");
+        document.getElementById("mainContent").style.display = "none";
+      }
+    };
+  </script>
+</body>
+</html>
